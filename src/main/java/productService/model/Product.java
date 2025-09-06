@@ -1,7 +1,7 @@
 package productService.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 import productService.constants.ProductCategory;
 import productService.constants.ProductStatus;
 
@@ -11,8 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table()
-@Data
+@Table(name = "product")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Product {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
