@@ -11,12 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "product")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)

@@ -1,9 +1,9 @@
 package productService.service;
 
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import productService.dto.ProductDto;
+import productService.dtos.ProductResponse;
+import productService.mapper.ProductMapper;
 import productService.model.Product;
 import productService.model.ProductAttribute;
 import productService.repository.ProductRepository;
@@ -14,35 +14,39 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductService {
 
-    private final ProductRepository productRepository;
+   private final ProductRepository productRepository;
+   protected final ProductMapper mapper;
 
-    private final ModelMapper modelMapper;
+   public List<ProductResponse> getAllProducts(){
+       return productRepository.findAll()
+               .stream()
+               .map(mapper::toResponse)
+               .toList();
+   }
 
-    public ProductDto create(ProductDto productDto){
-        Product product = modelMapper.map(productDto, Product.class);
-        // Link attributes to the parent product
-        if (product.getProductAttributes() != null) {
-            for (ProductAttribute attr : product.getProductAttributes()) {
-                attr.setProduct(product);
-            }
-        }
-        productRepository.save(product);
-        return productDto;
-    }
 
-    public ProductDto getProduct(Long id) {
-        Product product = productRepository.findById(id).orElse(null);
-        return modelMapper.map(product, ProductDto.class);
-    }
+   public ProductResponse getProductById(Long id){
+       Product productById = productRepository.getProductById(id);
+       return mapper.toResponse(productById);
+   }
 
-    public void delete(Long id) {
-        productRepository.deleteById(id);
-    }
+   public ProductResponse saveProduct(Product product){
+       if (product.getProductAttributes() != null) {
+           for (ProductAttribute attr : product.getProductAttributes()) {
+               attr.setProduct(product);
+           }
+       }
+       Product save = productRepository.save(product);
 
-    public List<ProductDto> getAllProducts() {
-        return productRepository.findAll()
-                .stream()
-                .map(p -> modelMapper.map(p, ProductDto.class))
-                .toList();
-    }
+       return mapper.toResponse(save);
+   }
+
+   public void deleteProductById(Long id){
+       productRepository.deleteById(id);
+   }
+
+  /* public Product updateProductById(Long id, Product product){
+       Product existingProduct = productRepository.getProductById(id);
+       return null;
+   }*/
 }
