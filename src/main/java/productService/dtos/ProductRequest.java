@@ -14,5 +14,5 @@ public record ProductRequest(
         String currency,
         String brand,
         List<ProductAttributeRequest> productAttributes,
-        List<String> imageUrls
+        List<ProductImageReqeust> imageUrls
 ) { }

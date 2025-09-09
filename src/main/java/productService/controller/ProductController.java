@@ -32,7 +32,7 @@ public class ProductController {
     @PostMapping("/create")
     //need to add security as admin can create product only
     public ResponseEntity<ProductResponse> createProduct(
-          //  @RequestHeader (value = "Idempotency-Key", required = false) String idempotencyKey,
+//          @RequestHeader (value = "Idempotency-Key", required = false) String idempotencyKey,
             @Valid @RequestBody ProductRequest productRequest){
         ProductResponse response = productService.saveProduct(mapper.toEntity(productRequest));
      return new ResponseEntity<>(response, HttpStatus.OK);

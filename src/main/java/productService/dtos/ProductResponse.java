@@ -2,6 +2,7 @@ package productService.dtos;
 
 import productService.constants.ProductCategory;
 import productService.constants.ProductStatus;
+import productService.model.ProductImage;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,6 +18,6 @@ public record ProductResponse(
     String currency,
     String brand,
     List<ProductAttributeResponse> productAttributes,
-    List<String> imageUrls
+    List<ProductImageResponse> imageUrls
 ) {}
 

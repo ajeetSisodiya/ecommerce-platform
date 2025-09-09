@@ -43,6 +43,10 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductAttribute> productAttributes = new ArrayList<>() ;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductImage> imageUrls = new ArrayList<>();
+
     @Enumerated(EnumType.STRING)
     private ProductCategory category;
+
 }

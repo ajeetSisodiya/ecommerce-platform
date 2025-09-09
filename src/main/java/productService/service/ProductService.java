@@ -31,11 +31,11 @@ public class ProductService {
    }
 
    public ProductResponse saveProduct(Product product){
-       if (product.getProductAttributes() != null) {
-           for (ProductAttribute attr : product.getProductAttributes()) {
-               attr.setProduct(product);
-           }
-       }
+
+       product.getProductAttributes().forEach(attributes-> attributes.setProduct(product));
+
+       product.getImageUrls().forEach(image -> image.setProduct(product));
+
        Product save = productRepository.save(product);
 
        return mapper.toResponse(save);
