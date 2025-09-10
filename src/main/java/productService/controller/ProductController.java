@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import productService.dtos.PagedResponse;
 import productService.dtos.ProductRequest;
 import productService.dtos.ProductResponse;
+import productService.exception.ProductNotFoundException;
 import productService.mapper.ProductMapper;
 import productService.service.ProductService;
 
@@ -49,24 +50,25 @@ public class ProductController {
         PagedResponse<ProductResponse> allProducts = productService.getAllProducts(pageable);
         return new ResponseEntity<>(allProducts, HttpStatus.OK);
     }
-
+    @Operation(summary = "Get A Product with Id")
     @GetMapping("/{id}")
-    public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id){
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id) throws ProductNotFoundException {
         ProductResponse productById = productService.getProductById(id);
         return new ResponseEntity<>(productById, HttpStatus.OK);
     }
-
+    @Operation(summary = "Delete a Product")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id){
         productService.deleteProductById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
+    @Operation(summary = "Update a Product")
     @PutMapping("/{id}")
     public ResponseEntity<ProductResponse> updateById(@PathVariable Long id ,
-                                                      @RequestBody ProductRequest productRequest){
-        return null;
+                                                      @RequestBody ProductRequest productRequest) throws ProductNotFoundException {
+        ProductResponse productResponse = productService.updateProductById(id, mapper.toEntity(productRequest));
+        return new ResponseEntity<>(productResponse, HttpStatus.CREATED);
     }
 
 
