@@ -1,14 +1,14 @@
 package productService.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import productService.dtos.PagedResponse;
 import productService.dtos.ProductResponse;
 import productService.mapper.ProductMapper;
 import productService.model.Product;
-import productService.model.ProductAttribute;
 import productService.repository.ProductRepository;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -17,11 +17,9 @@ public class ProductService {
    private final ProductRepository productRepository;
    protected final ProductMapper mapper;
 
-   public List<ProductResponse> getAllProducts(){
-       return productRepository.findAll()
-               .stream()
-               .map(mapper::toResponse)
-               .toList();
+   public PagedResponse<ProductResponse> getAllProducts(Pageable pageable){
+       Page<Product> all = productRepository.findAll(pageable);
+       return mapper.toPageResponse(all);
    }
 
 

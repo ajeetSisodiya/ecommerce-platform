@@ -5,10 +5,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import productService.dtos.PagedResponse;
 import productService.dtos.ProductRequest;
 import productService.dtos.ProductResponse;
 import productService.mapper.ProductMapper;
@@ -35,13 +39,14 @@ public class ProductController {
 //          @RequestHeader (value = "Idempotency-Key", required = false) String idempotencyKey,
             @Valid @RequestBody ProductRequest productRequest){
         ProductResponse response = productService.saveProduct(mapper.toEntity(productRequest));
-     return new ResponseEntity<>(response, HttpStatus.OK);
+     return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @Operation(summary = "Get All Products")
     @GetMapping
-    public ResponseEntity<List<ProductResponse>> getAllProducts(){
-        List<ProductResponse> allProducts = productService.getAllProducts();
+    public ResponseEntity<PagedResponse<ProductResponse>> getAllProducts(
+            @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable){
+        PagedResponse<ProductResponse> allProducts = productService.getAllProducts(pageable);
         return new ResponseEntity<>(allProducts, HttpStatus.OK);
     }
 
