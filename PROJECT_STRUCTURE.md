@@ -186,25 +186,59 @@ src/main/java/orderService/
 
 ### Project Structure
 ```
-src/main/java/paymentService/
+src/main/java/productService/
 │
-├── controller/
-│   └── PaymentController.java
+├── config/                
+│   ├── SwaggerConfig.java
+│   ├── RedisConfig.java
+│   └── SecurityConfig.java
 │
-├── dtos/
-│   ├── PaymentRequest.java
-│   └── PaymentResponse.java
+├── constants/             
+│   ├── ProductCategory.java
+│   └── ProductStatus.java
 │
-├── model/
-│   └── Payment.java
+├── controller/            
+│   └── ProductController.java
 │
-├── repository/
-│   └── PaymentRepository.java
+├── dtos/                  
+│   ├── ProductRequest.java
+│   ├── ProductResponse.java
+│   ├── ProductAttributeRequest.java
+│   ├── ProductAttributeResponse.java
+│   └── PagedResponse.java
 │
-├── service/
-│   └── PaymentService.java
+├── exception/             
+│   └── GlobalExceptionHandler.java
 │
-└── PaymentServiceApplication.java
+├── mapper/                
+│   └── ProductMapper.java
+│
+├── model/                 
+│   ├── Product.java
+│   ├── ProductAttribute.java
+│   └── ProductImage.java
+│
+├── repository/            
+│   └── ProductRepository.java
+│
+├── service/               
+│   ├── command/
+│   │   ├── ProductCommandService.java
+│   │   └── ProductCommandServiceImpl.java
+│   │
+│   ├── event/
+│   │   ├── ProductEventService.java
+│   │   └── ProductEventServiceImpl.java
+│   │
+│   └── query/
+│       ├── ProductQueryService.java
+│       └── ProductQueryServiceImpl.java
+│
+├── utils/                 
+│   └── PageMapper.java
+│
+└── ProductServiceApplication.java
+
 ```
 
 ### Sample Payloads
@@ -247,3 +281,23 @@ src/main/java/paymentService/
    ```bash
    ./gradlew bootRun
    ```
+
+
+## 🚀 Setup Kafka
+1. Install Kafka:
+   ```bash
+   brew install kafka
+   ```
+2. To run kafka without zookeeper:
+   ```bash
+   /opt/homebrew/opt/kafka/bin/kafka-server-start /opt/homebrew/etc/kafka/server.properties
+   ```
+3. Or run as a background service:
+   ```bash
+   brew services start kafka
+   ```
+4. Create a topic:
+   ```bash
+   /opt/homebrew/opt/kafka/bin/kafka-topics --create --topic product-events --bootstrap-server localhost:9092 --partitions 3 --replication-factor 1
+   ```
+  

@@ -18,9 +18,9 @@ import productService.dtos.ProductRequest;
 import productService.dtos.ProductResponse;
 import productService.exception.ProductNotFoundException;
 import productService.mapper.ProductMapper;
-import productService.service.ProductService;
-
-import java.util.List;
+import productService.service.command.ProductCommandService;
+import productService.service.event.ProductEventService;
+import productService.service.query.ProductQueryService;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -30,7 +30,11 @@ import java.util.List;
 @Tag(name = "Product API", description = "CRUD operations on products")
 public class ProductController {
 
-    private final ProductService productService;
+    private final ProductCommandService productCommandService;
+
+    private final ProductQueryService productQueryService;
+
+    private final ProductEventService productEventService;
 
     private final ProductMapper mapper;
 
@@ -42,27 +46,37 @@ public class ProductController {
     public ResponseEntity<ProductResponse> createProduct(
 //          @RequestHeader (value = "Idempotency-Key", required = false) String idempotencyKey,
             @Valid @RequestBody ProductRequest productRequest){
-        ProductResponse response = productService.saveProduct(mapper.toEntity(productRequest));
+        ProductResponse response = productCommandService.saveProduct(mapper.toEntity(productRequest));
      return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "Create Products in bulk (admin)")
+    @PostMapping("/bulkCreate")
+    //need to add security as admin can create product only
+    public ResponseEntity<ProductResponse> createBulkProducts(
+//          @RequestHeader (value = "Idempotency-Key", required = false) String idempotencyKey,
+            @Valid @RequestBody ProductRequest productRequest){
+        productEventService.publish(productRequest);
+        return ResponseEntity.accepted().build();
     }
 
     @Operation(summary = "Get All Products")
     @GetMapping
     public ResponseEntity<PagedResponse<ProductResponse>> getAllProducts(
             @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable){
-        PagedResponse<ProductResponse> allProducts = productService.getAllProducts(pageable);
+        PagedResponse<ProductResponse> allProducts = productQueryService.getAllProducts(pageable);
         return new ResponseEntity<>(allProducts, HttpStatus.OK);
     }
     @Operation(summary = "Get A Product with Id")
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id) throws ProductNotFoundException {
-        ProductResponse productById = productService.getProductById(id);
+        ProductResponse productById = productQueryService.getProductById(id);
         return new ResponseEntity<>(productById, HttpStatus.OK);
     }
     @Operation(summary = "Delete a Product")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id){
-        productService.deleteProductById(id);
+        productCommandService.deleteProductById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -70,7 +84,7 @@ public class ProductController {
     @PutMapping("/{id}")
     public ResponseEntity<ProductResponse> updateById(@PathVariable Long id ,
                                                       @RequestBody ProductRequest productRequest) throws ProductNotFoundException {
-        ProductResponse productResponse = productService.updateProductById(id, mapper.toEntity(productRequest));
+        ProductResponse productResponse = productCommandService.updateProductById(id, mapper.toEntity(productRequest));
         return new ResponseEntity<>(productResponse, HttpStatus.CREATED);
     }
 
