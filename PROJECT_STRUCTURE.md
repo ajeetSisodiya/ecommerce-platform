@@ -47,7 +47,17 @@ src/main/java/productService/
 │   └── ProductRepository.java
 │
 ├── service/               
-│   └── ProductService.java
+│   ├── command/
+│   │   ├── ProductCommandService.java
+│   │   └── ProductCommandServiceImpl.java
+│   │
+│   ├── event/
+│   │   ├── ProductEventService.java
+│   │   └── ProductEventServiceImpl.java
+│   │
+│   └── query/
+│       ├── ProductQueryService.java
+│       └── ProductQueryServiceImpl.java
 │
 ├── utils/                 
 │   └── PageMapper.java
@@ -186,59 +196,25 @@ src/main/java/orderService/
 
 ### Project Structure
 ```
-src/main/java/productService/
+src/main/java/paymentService/
 │
-├── config/                
-│   ├── SwaggerConfig.java
-│   ├── RedisConfig.java
-│   └── SecurityConfig.java
+├── controller/
+│   └── PaymentController.java
 │
-├── constants/             
-│   ├── ProductCategory.java
-│   └── ProductStatus.java
+├── dtos/
+│   ├── PaymentRequest.java
+│   └── PaymentResponse.java
 │
-├── controller/            
-│   └── ProductController.java
+├── model/
+│   └── Payment.java
 │
-├── dtos/                  
-│   ├── ProductRequest.java
-│   ├── ProductResponse.java
-│   ├── ProductAttributeRequest.java
-│   ├── ProductAttributeResponse.java
-│   └── PagedResponse.java
+├── repository/
+│   └── PaymentRepository.java
 │
-├── exception/             
-│   └── GlobalExceptionHandler.java
+├── service/
+│   └── PaymentService.java
 │
-├── mapper/                
-│   └── ProductMapper.java
-│
-├── model/                 
-│   ├── Product.java
-│   ├── ProductAttribute.java
-│   └── ProductImage.java
-│
-├── repository/            
-│   └── ProductRepository.java
-│
-├── service/               
-│   ├── command/
-│   │   ├── ProductCommandService.java
-│   │   └── ProductCommandServiceImpl.java
-│   │
-│   ├── event/
-│   │   ├── ProductEventService.java
-│   │   └── ProductEventServiceImpl.java
-│   │
-│   └── query/
-│       ├── ProductQueryService.java
-│       └── ProductQueryServiceImpl.java
-│
-├── utils/                 
-│   └── PageMapper.java
-│
-└── ProductServiceApplication.java
-
+└── PaymentServiceApplication.java
 ```
 
 ### Sample Payloads
