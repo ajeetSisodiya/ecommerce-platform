@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import productService.dtos.PagedResponse;
@@ -32,6 +33,8 @@ public class ProductController {
     private final ProductService productService;
 
     private final ProductMapper mapper;
+
+    private final KafkaTemplate<String, ProductRequest> kafkaTemplate;
 
     @Operation(summary = "Create Product (admin)")
     @PostMapping("/create")
