@@ -1,8 +1,9 @@
 package productService.utils;
 
+import ecommerce.productcommon.dtos.PagedResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import productService.dtos.PagedResponse;
+
 
 import java.util.List;
 import java.util.function.Function;

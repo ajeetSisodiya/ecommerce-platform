@@ -1,5 +1,8 @@
 package productService.controller;
 
+import ecommerce.productcommon.dtos.PagedResponse;
+import ecommerce.productcommon.dtos.ProductRequest;
+import ecommerce.productcommon.dtos.ProductResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -12,9 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import productService.dtos.PagedResponse;
-import productService.dtos.ProductRequest;
-import productService.dtos.ProductResponse;
+
 import productService.exception.ProductNotFoundException;
 import productService.mapper.ProductMapper;
 import productService.service.command.ProductCommandService;

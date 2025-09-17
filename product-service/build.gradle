@@ -34,10 +34,6 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
     implementation 'org.modelmapper.extensions:modelmapper-spring:3.1.1'
 
-        compileOnly 'org.projectlombok:lombok:1.18.34'
-        annotationProcessor 'org.projectlombok:lombok:1.18.34'
-
-
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     // MapStruct API
@@ -76,6 +72,7 @@ dependencies {
     // Logging: Logback JSON encoder (optional) for structured logs
     implementation 'net.logstash.logback:logstash-logback-encoder:7.4'
 
+    implementation project(':product-common')
 }
 
 dependencyManagement {

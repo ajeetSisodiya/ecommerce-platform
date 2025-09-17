@@ -1,4 +1,4 @@
-package productService.dtos;
+package ecommerce.productcommon.dtos;
 
 import java.util.List;
 

@@ -1,8 +1,9 @@
-package productService.dtos;
+package ecommerce.productcommon.dtos;
 
-import productService.constants.ProductCategory;
-import productService.constants.ProductStatus;
-import productService.model.ProductImage;
+
+
+import ecommerce.productcommon.constants.ProductCategory;
+import ecommerce.productcommon.constants.ProductStatus;
 
 import java.math.BigDecimal;
 import java.util.List;

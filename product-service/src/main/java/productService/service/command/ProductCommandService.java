@@ -1,6 +1,7 @@
 package productService.service.command;
 
-import productService.dtos.ProductResponse;
+
+import ecommerce.productcommon.dtos.ProductResponse;
 import productService.exception.ProductNotFoundException;
 import productService.model.Product;
 

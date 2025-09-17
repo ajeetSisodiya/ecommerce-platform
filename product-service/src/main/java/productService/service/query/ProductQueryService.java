@@ -1,8 +1,9 @@
 package productService.service.query;
 
+import ecommerce.productcommon.dtos.PagedResponse;
+import ecommerce.productcommon.dtos.ProductResponse;
 import org.springframework.data.domain.Pageable;
-import productService.dtos.PagedResponse;
-import productService.dtos.ProductResponse;
+
 import productService.exception.ProductNotFoundException;
 
 public interface ProductQueryService {

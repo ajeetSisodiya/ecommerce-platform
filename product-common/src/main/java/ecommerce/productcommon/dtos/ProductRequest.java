@@ -1,9 +1,9 @@
-package productService.dtos;
+package ecommerce.productcommon.dtos;
 
+import ecommerce.productcommon.constants.ProductCategory;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import productService.constants.ProductCategory;
 
 import java.math.BigDecimal;
 import java.util.List;

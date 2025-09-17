@@ -1,9 +1,9 @@
 package productService.mapper;
 
 
+import ecommerce.productcommon.dtos.ProductRequest;
+import ecommerce.productcommon.dtos.ProductResponse;
 import org.mapstruct.Mapper;
-import productService.dtos.ProductRequest;
-import productService.dtos.ProductResponse;
 import productService.model.Product;
 
 @Mapper(componentModel = "spring")

@@ -1,6 +1,6 @@
 package productService.service.event;
 
-import productService.dtos.ProductRequest;
+import ecommerce.productcommon.dtos.ProductRequest;
 
 import java.util.List;
 

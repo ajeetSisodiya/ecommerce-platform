@@ -1,11 +1,11 @@
 package productService.service.event;
 
+import ecommerce.productcommon.dtos.ProductRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import productService.dtos.ProductRequest;
 
 import java.util.List;
 

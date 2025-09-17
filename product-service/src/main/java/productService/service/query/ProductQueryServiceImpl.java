@@ -1,11 +1,11 @@
 package productService.service.query;
 
+import ecommerce.productcommon.dtos.PagedResponse;
+import ecommerce.productcommon.dtos.ProductResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import productService.dtos.PagedResponse;
-import productService.dtos.ProductResponse;
 import productService.exception.ProductNotFoundException;
 import productService.mapper.ProductMapper;
 import productService.model.Product;

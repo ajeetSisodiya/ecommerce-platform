@@ -1,16 +1,16 @@
 package productService.model;
 
+import ecommerce.productcommon.constants.ProductCategory;
+import ecommerce.productcommon.constants.ProductStatus;
 import jakarta.persistence.*;
 import lombok.*;
-import productService.constants.ProductCategory;
-import productService.constants.ProductStatus;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Collections;
+
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Entity
 @Getter
