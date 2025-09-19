@@ -2,7 +2,7 @@ package productService.service.command;
 
 
 import ecommerce.productcommon.dtos.ProductResponse;
-import productService.exception.ProductNotFoundException;
+import ecommerce.productcommon.exception.ProductNotFoundException;
 import productService.model.Product;
 
 public interface ProductCommandService {

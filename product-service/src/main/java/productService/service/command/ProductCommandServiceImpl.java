@@ -1,9 +1,9 @@
 package productService.service.command;
 
 import ecommerce.productcommon.dtos.ProductResponse;
+import ecommerce.productcommon.exception.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import productService.exception.ProductNotFoundException;
 import productService.mapper.ProductMapper;
 import productService.model.Product;
 import productService.repository.ProductRepository;

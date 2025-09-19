@@ -264,16 +264,24 @@ src/main/java/paymentService/
    ```bash
    brew install kafka
    ```
-2. To run kafka without zookeeper:
+2Use Java 17 (Optional based on project structure)
    ```bash
+  export JAVA_HOME=$(/usr/libexec/java_home -v17)
+  export PATH=$JAVA_HOME/bin:$PATH
+   ```
+3. Use Java 17 (Optional based on project structure)
+    ```bash
    /opt/homebrew/opt/kafka/bin/kafka-server-start /opt/homebrew/etc/kafka/server.properties
    ```
-3. Or run as a background service:
+4. Or run as a background service:
    ```bash
    brew services start kafka
    ```
-4. Create a topic:
+5. Create a topic:
    ```bash
    /opt/homebrew/opt/kafka/bin/kafka-topics --create --topic product-events --bootstrap-server localhost:9092 --partitions 3 --replication-factor 1
    ```
-  
+6. Listen to Topic:
+   ```bash
+   /opt/homebrew/opt/kafka/bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic product-events --from-beginning
+   ```

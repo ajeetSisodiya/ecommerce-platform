@@ -1,6 +1,6 @@
 package productService.service.event;
 
-import ecommerce.productcommon.dtos.ProductRequest;
+import ecommerce.productcommon.event.ProductCreatedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,14 +13,14 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class ProductEventServiceImpl implements ProductEventService {
-    private final KafkaTemplate<String, ProductRequest> kafkaTemplate;
+    private final KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate;
 
     @Value("${app.kafka.topic}")
     private String topic;
 
     @Override
-    public void publish(List<ProductRequest> productRequests) {
-        productRequests.forEach(product -> kafkaTemplate.send(topic, product.sku(), product).
+    public void publish(List<ProductCreatedEvent> events) {
+        events.forEach(product -> kafkaTemplate.send(topic, product.sku(), product).
                 whenComplete((result,exception)->{
                     if(exception == null){
                         log.info("✅ Published product sku={} partition={} offset={}",

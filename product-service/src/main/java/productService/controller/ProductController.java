@@ -3,6 +3,10 @@ package productService.controller;
 import ecommerce.productcommon.dtos.PagedResponse;
 import ecommerce.productcommon.dtos.ProductRequest;
 import ecommerce.productcommon.dtos.ProductResponse;
+import ecommerce.productcommon.event.ProductAttributeEvent;
+import ecommerce.productcommon.event.ProductCreatedEvent;
+import ecommerce.productcommon.event.ProductImageEvent;
+import ecommerce.productcommon.exception.ProductNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -16,7 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import productService.exception.ProductNotFoundException;
+
 import productService.mapper.ProductMapper;
 import productService.service.command.ProductCommandService;
 import productService.service.event.ProductEventService;
@@ -56,7 +60,20 @@ public class ProductController {
     public ResponseEntity<ProductResponse> createBulkProducts(
 //          @RequestHeader (value = "Idempotency-Key", required = false) String idempotencyKey,
             @Valid @RequestBody List<ProductRequest> productRequests){
-        productEventService.publish(productRequests);
+
+        List<ProductCreatedEvent> events = productRequests.stream().map(req -> new ProductCreatedEvent(
+                req.sku(),
+                req.name(),
+                req.description(),
+                req.category(),
+                req.price(),
+                req.currency(),
+                req.brand(),
+                req.productAttributes().stream().map(atr -> new ProductAttributeEvent(atr.name(), atr.value())).toList(),
+                req.imageUrls().stream().map(img -> new ProductImageEvent(img.url(), img.isPrimary())).toList()
+                )).toList();
+
+        productEventService.publish(events);
         return ResponseEntity.accepted().build();
     }
 
